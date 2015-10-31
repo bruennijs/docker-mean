@@ -8,13 +8,14 @@ RUN groupadd -r mongodb && useradd -r -g mongodb mongodb
 
 # RUN apt-get install -y mongodb
 # USE mongodb 3.0.x
-RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10
+RUN apt-key adv --keyserver keyserver.ubuntu.com --recv 7F0CEB10
 RUN echo "deb http://repo.mongodb.org/apt/ubuntu trusty/mongodb-org/3.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.0.list
+#RUN wget -O /etc/apt/sources.list.d/mongodb-org-3.1.list https://repo.mongodb.org/apt/ubuntu/dists/trusty/mongodb-org-3.1.list
 RUN apt-get update
 
 RUN apt-get install -y mongodb-org
 RUN apt-get install -y mongodb-org-server
-RUN apt-get install -y mongodb-org-shell
+# RUN apt-get install -y mongodb-org-shell
 
 RUN apt-get autoclean
 
@@ -29,4 +30,4 @@ EXPOSE 28017
 
 USER mongodb
 
-ENTRYPOINT ["mongod", "--config", "/etc/mongodb.conf", "--dbpath", "/data/db", "--port", "27017"]
+ENTRYPOINT ["mongod", "--config", "/etc/mongod.conf"]
